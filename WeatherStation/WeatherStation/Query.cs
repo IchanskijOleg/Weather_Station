@@ -10,7 +10,6 @@ namespace WeatherStation
     public class Query
     {
         private bool validRequest;
-        private Coord coord;
         private List<Weather> weathers = new List<Weather>();
         private string baseStr;
         private Main main;
@@ -19,13 +18,11 @@ namespace WeatherStation
         private Rain rain;
         private Snow snow;
         private Clouds clouds;
-        private Sys sys;
         private int id;
         private string name;
         private int cod;
 
         public bool ValidRequest { get { return validRequest; } }
-        public Coord Coord { get { return coord; } }
         public List<Weather> Weathers { get { return weathers; } }
         public string Base { get { return baseStr; } }
         public Main Main { get { return main; } }
@@ -34,7 +31,6 @@ namespace WeatherStation
         public Rain Rain { get { return rain; } }
         public Snow Snow { get { return snow; } }
         public Clouds Clouds { get { return clouds; } }
-        public Sys Sys { get { return sys; } }
         public int ID { get { return id; } }
         public string Name { get { return name; } }
         public int Cod { get { return cod; } }
@@ -45,7 +41,6 @@ namespace WeatherStation
             if(jsonData.SelectToken("cod").ToString() == "200")
             {
                 validRequest = true;
-                coord = new Coord(jsonData.SelectToken("coord"));
                 foreach (JToken weather in jsonData.SelectToken("weather"))
                     weathers.Add(new Weather(weather));
                 baseStr = jsonData.SelectToken("base").ToString();
@@ -58,7 +53,6 @@ namespace WeatherStation
                 if (jsonData.SelectToken("snow") != null)
                     snow = new Snow(jsonData.SelectToken("snow"));
                 clouds = new Clouds(jsonData.SelectToken("clouds"));
-                sys = new Sys(jsonData.SelectToken("sys"));
                 id = int.Parse(jsonData.SelectToken("id").ToString());
                 name = jsonData.SelectToken("name").ToString();
                 cod = int.Parse(jsonData.SelectToken("cod").ToString());

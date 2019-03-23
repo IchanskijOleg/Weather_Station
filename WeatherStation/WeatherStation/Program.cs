@@ -19,7 +19,7 @@ namespace WeatherStation
             Console.WriteLine("Виберіть місто для перегляду погоди:");
             var city = Console.ReadLine();
             Console.WriteLine();
-            //Console.WriteLine($"Погода в місті '{city}'");
+
             var results = client.Query(city);
 
             Console.WriteLine($"Температура в {city} = {results.Main.Temperature.CelsiusCurrent}C, вітер {results.Wind.SpeedMetersPerSecond} м/с, хмарність {results.Clouds.All}%.");
