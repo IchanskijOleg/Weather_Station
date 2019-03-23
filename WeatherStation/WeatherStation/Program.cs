@@ -16,14 +16,13 @@ namespace WeatherStation
             Console.WriteLine("OpenWeatherAPI Example Application");
             Console.WriteLine();
 
-            Console.WriteLine("Enter city to get weather data for:");
+            Console.WriteLine("Виберіть місто для перегляду погоди:");
             var city = Console.ReadLine();
             Console.WriteLine();
-
-            Console.WriteLine($"Fetching weather data for '{city}'");
+            //Console.WriteLine($"Погода в місті '{city}'");
             var results = client.Query(city);
 
-            Console.WriteLine($"The temperature in {city} is {results.Main.Temperature.CelsiusCurrent}C. There is {results.Wind.SpeedFeetPerSecond} f/s wind in the {results.Wind.Direction} direction.");
+            Console.WriteLine($"Температура в {city} = {results.Main.Temperature.CelsiusCurrent}C, вітер {results.Wind.SpeedMetersPerSecond} м/с, хмарність {results.Clouds.All}%.");
 
             Console.ReadLine();
         }
