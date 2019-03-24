@@ -61,6 +61,7 @@
     <Compile Include="Rain.cs" />
     <Compile Include="Snow.cs" />
     <Compile Include="StatisticsDisplay.cs" />
+    <Compile Include="ThirdPartyDisplay.cs" />
     <Compile Include="Weather.cs" />
     <Compile Include="WeatherCity.cs" />
     <Compile Include="WeatherData.cs" />

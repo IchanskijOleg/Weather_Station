@@ -8,8 +8,13 @@ namespace WeatherStation
 {
     class WeatherData: IObserverable
     {
-        List<IObsorver<WeatherCity>> masWeather = new List<IObsorver<WeatherCity>>();
+        List<IObsorver<WeatherCity>> masWeather;
         private WeatherCity weather;
+
+        public WeatherData()
+        {
+            masWeather = new List<IObsorver<WeatherCity>>();
+        }
 
         public void Register(IObsorver<WeatherCity> obs)
         {
@@ -29,10 +34,18 @@ namespace WeatherStation
             }
         }
 
-        public void MeasurementChanged(WeatherCity weather)
+        public void MeasurementChanged()
         {
-            this.weather = weather;
             Notify();
+        }
+
+        public void SetMeasurement(WeatherCity weather)
+        {
+            if (this.weather != weather)
+            {
+                this.weather = weather;
+                MeasurementChanged();
+            }            
         }
     }
 }
