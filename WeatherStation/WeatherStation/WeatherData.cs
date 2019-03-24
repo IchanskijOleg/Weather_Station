@@ -6,8 +6,33 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherData
+    class WeatherData: IObserverable
     {
+        List<IObsorver<WeatherCity>> masWeather = new List<IObsorver<WeatherCity>>();
+        private WeatherCity weather;
 
+        public void Delete(IObsorver<WeatherCity> obs)
+        {
+            masWeather.Remove(obs);
+        }
+
+        public void Notify()
+        {
+            foreach (var item in masWeather)
+            {
+                item.Update(weather);
+            }
+        }
+
+        public void Register(IObsorver<WeatherCity> obs)
+        {
+            masWeather.Add(obs);
+        }
+
+        public void MeasurementChanged(WeatherCity weather)
+        {
+            this.weather = weather;
+            Notify();
+        }
     }
 }

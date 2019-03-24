@@ -26,10 +26,28 @@ namespace WeatherStation
             WeatherCity weather2 = new WeatherCity(city2);
             WeatherCity weather3 = new WeatherCity(city3);
 
-            Console.WriteLine(weather1);
-            Console.WriteLine(weather2);
-            Console.WriteLine(weather3);
+            CurrentConditionDisplay display1 = new CurrentConditionDisplay();
+            StatisticsDisplay display2 = new StatisticsDisplay();
+            ForecastDisplay display3 = new ForecastDisplay();
 
+            WeatherData wData = new WeatherData();
+            wData.Register(display1);
+            wData.Register(display2);
+            wData.Register(display3);
+             
+            //Console.WriteLine(weather1);
+            //Console.WriteLine(weather2);
+            //Console.WriteLine(weather3);
+
+            //Action<WeatherCity> sinopticUa = wData.MeasurementChanged;
+            //sinopticUa(weather1);
+            Action<WeatherCity> sinopticUa = display1.Update;
+
+            for (int i = 0; i < 4; i++)
+            {
+                sinopticUa(weather1);
+                Console.WriteLine(sinopticUa.ToString()); 
+            }
             Console.ReadLine();
         }
     }
