@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //Отображение статистики
-    class StatisticsDisplay : IObsorver<WeatherCity>
+    class StatisticsDisplay : IObsorver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
 
@@ -19,6 +19,11 @@ namespace WeatherStation
         public override string ToString()
         {
             return $"Статистична температура в {weather.City} = {weather.CelsiusCurrent}C, вітер {weather.SpeedMetersPerSecond} м/с, хмарність {weather.Clouds}%.";
+        }
+
+        public void Display()
+        {
+            Console.WriteLine(weather);
         }
     }
 }

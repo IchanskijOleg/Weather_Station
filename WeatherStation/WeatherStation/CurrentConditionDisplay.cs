@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //отображение текущего состояния
-    class CurrentConditionDisplay : IObsorver<WeatherCity>
+    class CurrentConditionDisplay : IObsorver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
 
@@ -19,6 +19,11 @@ namespace WeatherStation
         public override string ToString()
         {
             return $"Поточна температура в {weather.City} = {weather.CelsiusCurrent}C, вітер {weather.SpeedMetersPerSecond} м/с, хмарність {weather.Clouds}%.";
+        }
+
+        public void Display()
+        {
+            Console.WriteLine(weather);
         }
     }
 }

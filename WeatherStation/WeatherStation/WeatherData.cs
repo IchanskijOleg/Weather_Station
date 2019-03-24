@@ -11,6 +11,11 @@ namespace WeatherStation
         List<IObsorver<WeatherCity>> masWeather = new List<IObsorver<WeatherCity>>();
         private WeatherCity weather;
 
+        public void Register(IObsorver<WeatherCity> obs)
+        {
+            masWeather.Add(obs);
+        }
+
         public void Delete(IObsorver<WeatherCity> obs)
         {
             masWeather.Remove(obs);
@@ -22,11 +27,6 @@ namespace WeatherStation
             {
                 item.Update(weather);
             }
-        }
-
-        public void Register(IObsorver<WeatherCity> obs)
-        {
-            masWeather.Add(obs);
         }
 
         public void MeasurementChanged(WeatherCity weather)
