@@ -10,10 +10,18 @@ namespace WeatherStation
     class CurrentConditionDisplay : IObsorver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
+        private IObserverable weatherData;
+
+        public CurrentConditionDisplay(IObserverable weatherData)
+        {
+            this.weatherData = weatherData;
+            weatherData.Register(this);
+        }
 
         public void Update(WeatherCity weather)
         {
             this.weather = weather;
+            Display();
         }
 
         public override string ToString()
@@ -23,7 +31,7 @@ namespace WeatherStation
 
         public void Display()
         {
-            Console.WriteLine(weather);
+            Console.WriteLine(this);
         }
     }
 }
