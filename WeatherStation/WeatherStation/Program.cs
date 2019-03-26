@@ -36,6 +36,7 @@ namespace WeatherStation
 
             //Змінюємо показники погоди
             sinopticUa.SetMeasurement(weather1);
+            sinopticUa.SetMeasurement(weather1);
             sinopticUa.SetMeasurement(weather2);
             sinopticUa.SetMeasurement(weather3);
 
