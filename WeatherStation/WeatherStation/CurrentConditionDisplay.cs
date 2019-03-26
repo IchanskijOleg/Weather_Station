@@ -29,6 +29,11 @@ namespace WeatherStation
             return $"Поточна температура в {weather.City} = {weather.CelsiusCurrent}C, вітер {weather.SpeedMetersPerSecond} м/с, хмарність {weather.Clouds}%.";
         }
 
+        public void UnSubscribe()
+        {
+            weatherData.Delete(this);
+        }
+
         public void Display()
         {
             Console.WriteLine(this);
