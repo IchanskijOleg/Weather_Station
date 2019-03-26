@@ -51,7 +51,6 @@
     <Compile Include="CurrentConditionDisplay.cs" />
     <Compile Include="ForecastDisplay.cs" />
     <Compile Include="IDisplayElement.cs" />
-    <Compile Include="IObsorver.cs" />
     <Compile Include="IObserverable.cs" />
     <Compile Include="Weather\Main.cs" />
     <Compile Include="Weather\OpenWeatherAPI.cs" />

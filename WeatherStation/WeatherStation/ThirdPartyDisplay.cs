@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class ThirdPartyDisplay : IObsorver<WeatherCity>, IDisplayElement
-    {
-        public void Update(WeatherCity T)
-        {
-            throw new NotImplementedException();
-        }
+    //class ThirdPartyDisplay : IObsorver<WeatherCity>, IDisplayElement
+    //{
+    //    public void Update(WeatherCity T)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public void Display()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public void Display()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

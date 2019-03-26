@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //Отображение прогноза
-    class ForecastDisplay : IObsorver<WeatherCity>, IDisplayElement
+    class ForecastDisplay : IObserver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
-        private IObserverable weatherData;
+        private IObservable<WeatherCity> weatherData;
 
-        public ForecastDisplay(IObserverable weatherData)
+        public ForecastDisplay(IObservable<WeatherCity> weatherData)
         {
             this.weatherData = weatherData;
-            weatherData.Register(this);
-        }
-
-        public void Update(WeatherCity weather)
-        {
-            this.weather = weather;
-            Display();
+            weatherData.Subscribe(this);
         }
 
         public override string ToString()
@@ -32,6 +26,23 @@ namespace WeatherStation
         public void Display()
         {
             Console.WriteLine(this);
+        }
+
+        //реалізація стандартного інтерфейсу IObserver
+        public void OnNext(WeatherCity weather)
+        {
+            this.weather = weather;
+            Display();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            (weatherData as IDisposable).Dispose();
         }
     }
 }

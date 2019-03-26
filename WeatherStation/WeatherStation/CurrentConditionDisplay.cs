@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //отображение текущего состояния
-    class CurrentConditionDisplay : IObsorver<WeatherCity>, IDisplayElement
+    class CurrentConditionDisplay :IObserver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
-        private IObserverable weatherData;
+        private IObservable<WeatherCity> weatherData;
 
-        public CurrentConditionDisplay(IObserverable weatherData)
+        public CurrentConditionDisplay(IObservable<WeatherCity> weatherData)
         {
             this.weatherData = weatherData;
-            weatherData.Register(this);
-        }
-
-        public void Update(WeatherCity weather)
-        {
-            this.weather = weather;
-            Display();
+            weatherData.Subscribe(this);
         }
 
         public override string ToString()
@@ -29,14 +23,26 @@ namespace WeatherStation
             return $"Поточна температура в {weather.City} = {weather.CelsiusCurrent}C, вітер {weather.SpeedMetersPerSecond} м/с, хмарність {weather.Clouds}%.";
         }
 
-        public void UnSubscribe()
-        {
-            weatherData.Delete(this);
-        }
-
         public void Display()
         {
             Console.WriteLine(this);
+        }
+
+        //реалізація стандартного інтерфейсу IObserver
+        public void OnNext(WeatherCity weather)
+        {
+            this.weather = weather;
+            Display();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            (weatherData as IDisposable).Dispose();
         }
     }
 }

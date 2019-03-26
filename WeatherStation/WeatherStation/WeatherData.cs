@@ -6,31 +6,22 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherData: IObserverable
+    class WeatherData: IObservable<WeatherCity>, IDisposable
     {
-        List<IObsorver<WeatherCity>> masWeather;
+        List<IObserver<WeatherCity>> masWeather;
         private WeatherCity weather;
+        IObserver<WeatherCity> observer;
 
         public WeatherData()
         {
-            masWeather = new List<IObsorver<WeatherCity>>();
-        }
-
-        public void Register(IObsorver<WeatherCity> obs)
-        {
-            masWeather.Add(obs);
-        }
-
-        public void Delete(IObsorver<WeatherCity> obs)
-        {
-            masWeather.Remove(obs);
+            masWeather = new List<IObserver<WeatherCity>>();
         }
 
         public void Notify()
         {
             foreach (var item in masWeather)
             {
-                item.Update(weather);
+                item.OnNext(weather);
             }
         }
 
@@ -48,5 +39,18 @@ namespace WeatherStation
                 MeasurementChanged();
             }            
         }
+
+        public IDisposable Subscribe(IObserver<WeatherCity> observer)
+        {
+            this.observer = observer;
+            masWeather.Add(observer);
+            return (observer as IDisposable);
+        }
+
+        public void Dispose()
+        {
+            masWeather.Remove(this.observer); 
+        }
+ 
     }
 }

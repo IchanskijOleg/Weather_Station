@@ -36,14 +36,14 @@ namespace WeatherStation
             
             //Змінюємо показники погоди
             sinopticUa.SetMeasurement(weather1);
-            sinopticUa.SetMeasurement(weather1);
+            //sinopticUa.SetMeasurement(weather1);
             sinopticUa.SetMeasurement(weather2);
             sinopticUa.SetMeasurement(weather3);
 
             Console.WriteLine();
             sinopticUa.Notify();
-            sinopticUa.Delete(display3); //sinopticUa відписує display3
-            display1.UnSubscribe(); // display1 відписується від sinopticUa 
+            sinopticUa.Dispose(); //sinopticUa відписує display3
+            //display1.UnSubscribe(); // display1 відписується від sinopticUa 
             Console.WriteLine();
             sinopticUa.Notify();
 
