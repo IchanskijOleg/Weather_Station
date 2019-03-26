@@ -40,7 +40,7 @@ namespace WeatherStation
         {
             SpeedMetersPerSecond = double.Parse(windData.SelectToken("speed").ToString());
             SpeedFeetPerSecond = SpeedMetersPerSecond * 3.28084;
-            Degree = double.Parse(windData.SelectToken("deg").ToString());
+            //Degree = double.Parse(windData.SelectToken("deg").ToString());
             Direction = assignDirection(Degree);
             if(windData.SelectToken("gust") != null)
                 Gust = double.Parse(windData.SelectToken("gust").ToString());

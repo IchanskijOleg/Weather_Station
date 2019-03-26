@@ -23,33 +23,26 @@ namespace WeatherStation
             Console.WriteLine();
 
             WeatherCity weather1 = new WeatherCity(city1);
-            //WeatherCity weather2 = new WeatherCity(city2);
-            //WeatherCity weather3 = new WeatherCity(city3);
+            WeatherCity weather2 = new WeatherCity(city2);
+            WeatherCity weather3 = new WeatherCity(city3);
 
-            WeatherData wData = new WeatherData();
-            //wData.Register(display1);
-            //wData.Register(display2);
-            //wData.Register(display3);
+            //створюємо Subject
+            WeatherData sinopticUa = new WeatherData();
 
-            CurrentConditionDisplay display1 = new CurrentConditionDisplay(wData);
-            StatisticsDisplay display2 = new StatisticsDisplay(wData);
-            ForecastDisplay display3 = new ForecastDisplay(wData);
+            //створюємо Observers
+            CurrentConditionDisplay display1 = new CurrentConditionDisplay(sinopticUa);
+            StatisticsDisplay display2 = new StatisticsDisplay(sinopticUa);
+            ForecastDisplay display3 = new ForecastDisplay(sinopticUa);
 
-            wData.SetMeasurement(weather1);
-
-            //Console.WriteLine(weather1);
-            //Console.WriteLine(weather2);
-            //Console.WriteLine(weather3);
+            //Змінюємо показники погоди
+            sinopticUa.SetMeasurement(weather1);
+            sinopticUa.SetMeasurement(weather2);
+            sinopticUa.SetMeasurement(weather3);
 
             //Action<WeatherCity> sinopticUa = wData.MeasurementChanged;
             //sinopticUa(weather1);
             //Action<WeatherCity> sinopticUa = display1.Update;
 
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    sinopticUa(weather1);
-            //    Console.WriteLine(sinopticUa.ToString()); 
-            //}
             Console.ReadLine();
         }
     }
