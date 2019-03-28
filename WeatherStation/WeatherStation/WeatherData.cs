@@ -34,7 +34,7 @@ namespace WeatherStation
 
         public void SetMeasurement(WeatherCity weather)
         {
-            СWriteLog.WriteFile(weather.ToString()); //пишемо лог
+            //СWriteLog.WriteFile(weather.ToString()); //пишемо лог
             if (this.weather != weather)
             {
                 this.weather = weather;
