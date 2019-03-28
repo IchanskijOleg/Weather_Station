@@ -9,12 +9,19 @@ namespace WeatherStation
 {
     public static class СWriteLog
     {
-        //public static string path = @"D:\WeatherStation.txt";
-        public static string path = @"C:\Users\o.ichanskij\Documents\WeatherStation.txt";
+        public static string path = @"D:\WeatherStation.txt";
         public static string dateString = DateTime.Now.ToString();
+        public static void CheckDirectory()
+        {
+            if (!Directory.Exists("D:"))
+            {
+                path = @"C:\Users\o.ichanskij\Documents\WeatherStation.txt";
+            }
+        }
 
         public static void WriteFile(string text)
         {
+            CheckDirectory();
             StreamWriter sw = new StreamWriter(path, true);
             if (dateString != null)
             {
