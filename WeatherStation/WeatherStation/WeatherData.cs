@@ -8,6 +8,24 @@ namespace WeatherStation
 {
     class WeatherData : IObservable<WeatherCity>, IDisposable
     {
+        protected Action<WeatherCity> observers = null;
+        public event Action<WeatherCity> EventWeather
+        {
+            add { observers += value; }
+            remove { observers -= value; }
+        }
+        //public void OnEvent(WeatherCity weather)
+        //{
+        //    if (EventWeather != null)
+        //    {
+        //        EventWeather(weather);
+        //    }
+        //}
+        public void NotifyNew(WeatherCity weather)
+        {
+            observers.Invoke(weather);
+        }
+
         List<IObserver<WeatherCity>> masWeather;
         private WeatherCity weather;
 

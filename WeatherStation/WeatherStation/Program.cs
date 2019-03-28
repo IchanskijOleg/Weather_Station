@@ -38,23 +38,34 @@ namespace WeatherStation
             //sinopticUa.Subscribe(display1);
             //sinopticUa.Subscribe(display2);
             //sinopticUa.Subscribe(display3);
-            IDisposable unsubscriber1 = sinopticUa.Subscribe(display1);
-            IDisposable unsubscriber2 = sinopticUa.Subscribe(display2);
-            IDisposable unsubscriber3 = sinopticUa.Subscribe(display3);
+            //IDisposable unsubscriber1 = sinopticUa.Subscribe(display1);
+            //IDisposable unsubscriber2 = sinopticUa.Subscribe(display2);
+            //IDisposable unsubscriber3 = sinopticUa.Subscribe(display3);
+            sinopticUa.EventWeather += display1.OnNext;
+            sinopticUa.EventWeather += display2.OnNext;
+            sinopticUa.EventWeather += display3.OnNext;
+            //sinopticUa.EventWeather += (new  ForecastDisplay(sinopticUa)).OnNext;
+            //sinopticUa.EventWeather += x=> {   new WeatherCity(""); };
+            //sinopticUa(weather1);
 
             //Змінюємо показники погоди
-            sinopticUa.SetMeasurement(weather1);
             //sinopticUa.SetMeasurement(weather1);
-            sinopticUa.SetMeasurement(weather2);
-            sinopticUa.SetMeasurement(weather3);
+            //////sinopticUa.SetMeasurement(weather1);
+            //sinopticUa.SetMeasurement(weather2);
+            //sinopticUa.SetMeasurement(weather3);
+
+            //Console.WriteLine();
+            //unsubscriber2.Dispose(); //Відписка другого підписника через ConcreteSubject.Unsubscriber.Dispose()
+            //sinopticUa.Notify();
+   
+            sinopticUa.NotifyNew(weather1);
+            sinopticUa.NotifyNew(weather2);
+            sinopticUa.NotifyNew(weather3);
 
             Console.WriteLine();
-            unsubscriber2.Dispose(); //Відписка другого підписника через ConcreteSubject.Unsubscriber.Dispose()
-            sinopticUa.Notify();
-
-            Console.WriteLine();
-            display1.OnCompleted(); // display1 відписується від sinopticUa 
-            sinopticUa.Notify();
+            sinopticUa.EventWeather -= display2.OnNext;  // display2 відписується від sinopticUa 
+            //sinopticUa.Notify();
+            sinopticUa.NotifyNew(weather1);
 
             Console.WriteLine();
             sinopticUa.Dispose(); //відписуємо всіх

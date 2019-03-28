@@ -9,6 +9,9 @@ namespace WeatherStation
     //отображение текущего состояния
     class CurrentConditionDisplay : IObserver<WeatherCity>, IDisplayElement
     {
+        // Подписчик.
+        //delegate void Observer(WeatherCity weather);
+
         private WeatherCity weather;
         IDisposable unsubscriber;
         private IObservable<WeatherCity> weatherData;
