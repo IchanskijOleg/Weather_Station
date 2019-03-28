@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherData: IObservable<WeatherCity>, IDisposable
+    class WeatherData : IObservable<WeatherCity>, IDisposable
     {
         List<IObserver<WeatherCity>> masWeather;
         private WeatherCity weather;
-        IObserver<WeatherCity> observer;
 
         public WeatherData()
         {
@@ -19,9 +18,12 @@ namespace WeatherStation
 
         public void Notify()
         {
-            foreach (var item in masWeather)
+            foreach (IObserver<WeatherCity> observer in masWeather)
             {
-                item.OnNext(weather);
+                if (this.weather == null)
+                    observer.OnError(new NullReferenceException());
+                else
+                    observer.OnNext(this.weather); // модель проштовхування
             }
         }
 
@@ -37,20 +39,44 @@ namespace WeatherStation
             {
                 this.weather = weather;
                 MeasurementChanged();
-            }            
+            }
         }
 
         public IDisposable Subscribe(IObserver<WeatherCity> observer)
         {
-            this.observer = observer;
-            masWeather.Add(observer);
-            return (observer as IDisposable);
+            if (!masWeather.Contains(observer))
+                masWeather.Add(observer);
+            return new Unsubscriber(masWeather, observer);
         }
 
+        /// <summary>
+        /// Відписати всіх підписників.
+        /// </summary>
         public void Dispose()
         {
-            masWeather.Remove(this.observer); 
+            masWeather.Clear();
         }
- 
+
+        // Nested Class
+        class Unsubscriber : IDisposable
+        {
+            List<IObserver<WeatherCity>> observers;
+            IObserver<WeatherCity> observer;
+
+            public Unsubscriber(List<IObserver<WeatherCity>> observers, IObserver<WeatherCity> observer)
+            {
+                this.observers = observers;
+                this.observer = observer;
+            }
+
+            public void Dispose()
+            {
+                if (observers.Contains(observer))
+                    observers.Remove(observer);
+                else
+                    observer.OnError(new Exception("Данный подписчик не подписан на издателя."));
+            }
+        }
+
     }
 }

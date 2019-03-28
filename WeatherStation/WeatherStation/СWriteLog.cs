@@ -9,7 +9,8 @@ namespace WeatherStation
 {
     public static class СWriteLog
     {
-        public static string path = @"D:\WeatherStation.txt";
+        //public static string path = @"D:\WeatherStation.txt";
+        public static string path = @"C:\Users\o.ichanskij\Documents\WeatherStation.txt";
         public static string dateString = DateTime.Now.ToString();
 
         public static void WriteFile(string text)

@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //отображение текущего состояния
-    class CurrentConditionDisplay :IObserver<WeatherCity>, IDisplayElement
+    class CurrentConditionDisplay : IObserver<WeatherCity>, IDisplayElement
     {
         private WeatherCity weather;
+        IDisposable unsubscriber;
         private IObservable<WeatherCity> weatherData;
 
         public CurrentConditionDisplay(IObservable<WeatherCity> weatherData)
         {
             this.weatherData = weatherData;
-            weatherData.Subscribe(this);
+            unsubscriber = weatherData.Subscribe(this);
         }
 
         public override string ToString()
@@ -28,21 +29,25 @@ namespace WeatherStation
             Console.WriteLine(this);
         }
 
-        //реалізація стандартного інтерфейсу IObserver
-        public void OnNext(WeatherCity weather)
+        //реалізація стандартного інтерфейсу IObserver<T>
+
+        public void OnCompleted()
         {
-            this.weather = weather;
-            Display();
+            unsubscriber.Dispose();
         }
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Observer {0}, Error: {1}", weather.ToString(), error.Message);
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void OnCompleted()
+        // Аналог Update(argument) - модель проталкивания.
+        public void OnNext(WeatherCity weather)
         {
-            (weatherData as IDisposable).Dispose();
+            this.weather = weather;
+            Display();
         }
     }
 }

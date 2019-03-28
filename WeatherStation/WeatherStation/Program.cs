@@ -33,7 +33,15 @@ namespace WeatherStation
             CurrentConditionDisplay display1 = new CurrentConditionDisplay(sinopticUa);
             StatisticsDisplay display2 = new StatisticsDisplay(sinopticUa);
             ForecastDisplay display3 = new ForecastDisplay(sinopticUa);
-            
+
+            //підписуємо підписників на sinopticUa
+            //sinopticUa.Subscribe(display1);
+            //sinopticUa.Subscribe(display2);
+            //sinopticUa.Subscribe(display3);
+            IDisposable unsubscriber1 = sinopticUa.Subscribe(display1);
+            IDisposable unsubscriber2 = sinopticUa.Subscribe(display2);
+            IDisposable unsubscriber3 = sinopticUa.Subscribe(display3);
+
             //Змінюємо показники погоди
             sinopticUa.SetMeasurement(weather1);
             //sinopticUa.SetMeasurement(weather1);
@@ -41,10 +49,15 @@ namespace WeatherStation
             sinopticUa.SetMeasurement(weather3);
 
             Console.WriteLine();
+            unsubscriber2.Dispose(); //Відписка другого підписника через ConcreteSubject.Unsubscriber.Dispose()
             sinopticUa.Notify();
-            sinopticUa.Dispose(); //sinopticUa відписує display3
-            //display1.UnSubscribe(); // display1 відписується від sinopticUa 
+
             Console.WriteLine();
+            display1.OnCompleted(); // display1 відписується від sinopticUa 
+            sinopticUa.Notify();
+
+            Console.WriteLine();
+            sinopticUa.Dispose(); //відписуємо всіх
             sinopticUa.Notify();
 
             Console.ReadLine();
