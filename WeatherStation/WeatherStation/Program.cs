@@ -38,20 +38,25 @@ namespace WeatherStation
             sinopticUa.EventWeather += display1.OnNext;
             sinopticUa.EventWeather += display2.OnNext;
             sinopticUa.EventWeather += display3.OnNext;
-            //sinopticUa.EventWeather += (new  ForecastDisplay(sinopticUa)).OnNext;
+            sinopticUa.EventWeather += (new  ForecastDisplay()).OnNext;
             //sinopticUa.EventWeather += x=> {   new WeatherCity("Lviv"); };
 
             //Змінюємо показники погоди
-            sinopticUa.Notify(weather1);
-            sinopticUa.Notify(weather2);
-            sinopticUa.Notify(weather3);
+            sinopticUa.SetMeasuremants(weather1);
+            //Розсилаємо погоду
+            sinopticUa.Notify();
+
+            sinopticUa.SetMeasuremants(weather2);
+            sinopticUa.Notify();
+            sinopticUa.SetMeasuremants(weather3);
+            sinopticUa.Notify();
 
             Console.WriteLine();
 
             display2.canUse = false; // display2 відписується від sinopticUa 
             sinopticUa.EventWeather -= display1.OnNext; // sinopticUa відписує display1
 
-            sinopticUa.Notify(weather1);
+            sinopticUa.Notify();
 
             Console.ReadLine();
         }

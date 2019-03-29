@@ -8,18 +8,23 @@ namespace WeatherStation
 {
     class WeatherData
     {
+        private WeatherCity weather;
         protected Action<WeatherCity> observers = null;
+
         public event Action<WeatherCity> EventWeather
         {
             add { observers += value; }
             remove { observers -= value; }
         }
 
-        public void Notify(WeatherCity weather)
+        public void SetMeasuremants(WeatherCity weather)
+        {
+            this.weather = weather;
+        }
+
+        public void Notify()
         {
             observers.Invoke(weather);
         }
-
-
     }
 }
