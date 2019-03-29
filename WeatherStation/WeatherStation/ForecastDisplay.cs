@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 namespace WeatherStation
 {
     //Отображение прогноза
-    class ForecastDisplay : IObserver<WeatherCity>, IDisplayElement
+    class ForecastDisplay : IObserver, IDisplayElement
     {
+        // Подписчик.
+        //delegate void Observer(WeatherCity weather);
+
         private WeatherCity weather;
-        private IObservable<WeatherCity> weatherData;
-
-        public ForecastDisplay(IObservable<WeatherCity> weatherData)
-        {
-            this.weatherData = weatherData;
-            weatherData.Subscribe(this);
-        }
-
+        public bool canUse = true;
         public override string ToString()
         {
             return $"Прогноз температури в {weather.City} = {weather.CelsiusCurrent}C, вітер {weather.SpeedMetersPerSecond} м/с, хмарність {weather.Clouds}%.";
@@ -28,21 +24,15 @@ namespace WeatherStation
             Console.WriteLine(this);
         }
 
-        //реалізація стандартного інтерфейсу IObserver
+        // Аналог Update(argument) - модель проталкивания.
         public void OnNext(WeatherCity weather)
         {
+            if (!canUse)
+                return;
             this.weather = weather;
             Display();
         }
-
-        public void OnError(Exception error)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnCompleted()
-        {
-            (weatherData as IDisposable).Dispose();
-        }
     }
 }
+
+

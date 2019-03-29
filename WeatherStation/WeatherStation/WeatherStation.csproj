@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IObserver.cs" />
     <Compile Include="Weather\Clouds.cs" />
     <Compile Include="CurrentConditionDisplay.cs" />
     <Compile Include="ForecastDisplay.cs" />
