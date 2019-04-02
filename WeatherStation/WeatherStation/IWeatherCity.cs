@@ -12,5 +12,7 @@ namespace WeatherStation
         double CelsiusCurrent { get; set; }
         double SpeedMetersPerSecond { get; set; }
         double Clouds { get; set; }
+
+        string ToFile();
     }
 }

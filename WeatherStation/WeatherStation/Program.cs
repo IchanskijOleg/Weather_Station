@@ -58,6 +58,10 @@ namespace WeatherStation
 
             sinopticUa.Notify();
 
+
+            //запишемо погоду в файл
+            WeatherCreator creator = new WeatherCreator();
+            creator.SaveToFile(weather3 as IWeatherCity, @"D:\WeatherCity.txt");
             Console.ReadLine();
         }
     }

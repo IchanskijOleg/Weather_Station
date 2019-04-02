@@ -20,7 +20,7 @@ namespace WeatherStation
         {
             using (StreamWriter sw = new StreamWriter(filename))
             {
-                sw.WriteLine(weatherCity.ToString());
+                sw.WriteLine(weatherCity.ToFile());
             }
         }
 

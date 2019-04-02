@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherCity
+    class WeatherCity : IWeatherCity
     {
-        public readonly string City;
-        public readonly double CelsiusCurrent;
-        public readonly double SpeedMetersPerSecond;
-        public readonly double Clouds;
+        //public readonly string City;
+        //public readonly double CelsiusCurrent;
+        //public readonly double SpeedMetersPerSecond;
+        //public readonly double Clouds;
+        public string City { get; set; }
+        public double CelsiusCurrent { get; set; }
+        public double SpeedMetersPerSecond { get; set; }
+        public double Clouds { get; set; }
 
         public WeatherCity(string city)
         {
@@ -26,6 +30,11 @@ namespace WeatherStation
         public override string ToString()
         {
             return $"Температура в {City} = {CelsiusCurrent}C, вітер {SpeedMetersPerSecond} м/с, хмарність {Clouds}%.";
+        }
+
+        public string ToFile()
+        {
+            return $"City={City}\r\nCelsiusCurrent={CelsiusCurrent}\r\nSpeedMetersPerSecond={SpeedMetersPerSecond}\r\nClouds={Clouds}";
         }
     }
 }
