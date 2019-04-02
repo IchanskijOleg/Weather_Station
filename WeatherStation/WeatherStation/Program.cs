@@ -38,7 +38,7 @@ namespace WeatherStation
             sinopticUa.EventWeather += display1.OnNext;
             sinopticUa.EventWeather += display2.OnNext;
             sinopticUa.EventWeather += display3.OnNext;
-            sinopticUa.EventWeather += (new  ForecastDisplay()).OnNext;
+            sinopticUa.EventWeather += new Action<WeatherCity>((new  ForecastDisplay()).OnNext);
             //sinopticUa.EventWeather += x=> {   new WeatherCity("Lviv"); };
 
             //Змінюємо показники погоди
