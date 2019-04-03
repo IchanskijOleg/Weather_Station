@@ -62,6 +62,8 @@ namespace WeatherStation
             //запишемо погоду в файл
             WeatherCreator creator = new WeatherCreator();
             creator.SaveToFile(weather3 as IWeatherCity, @"D:\WeatherCity.txt");
+
+            List<IWeatherCity> arr = creator.ReadFromFile(@"D:\WeatherCity1.txt");
             Console.ReadLine();
         }
     }

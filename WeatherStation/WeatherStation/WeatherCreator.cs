@@ -10,7 +10,7 @@ namespace WeatherStation
     public class WeatherCreator
     {
         List<IWeatherCity> mas = new List<IWeatherCity>();
-        IWeatherCity weatherCity;
+        public IWeatherCity weatherCity;
         public void CreateWeatheFromFile(IWeatherCity weatherCity)
         {
             this.weatherCity = weatherCity;
@@ -34,6 +34,9 @@ namespace WeatherStation
                     string strparams = sr.ReadLine();
                     string[] p = strparams.Split('=');
 
+                    if (this.weatherCity == null)
+                        this.weatherCity = new WeatherCity();
+
                     switch (p[0])
                     {
                         case "City":
@@ -47,10 +50,10 @@ namespace WeatherStation
                             break;
                         case "Clouds":
                             weatherCity.Clouds = double.Parse(p[1]);
+                            if (p[1] != null)
+                                mas.Add(weatherCity);
                             break;
                     }
-                    if (p[1] != null)
-                        mas.Add(weatherCity);
                 }
                 return mas;
             }

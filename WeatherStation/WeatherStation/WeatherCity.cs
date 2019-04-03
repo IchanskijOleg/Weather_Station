@@ -16,7 +16,9 @@ namespace WeatherStation
         public double CelsiusCurrent { get; set; }
         public double SpeedMetersPerSecond { get; set; }
         public double Clouds { get; set; }
-
+        public WeatherCity()
+        {
+        }
         public WeatherCity(string city)
         {
             OpenWeatherAPI client = new OpenWeatherAPI("eb873a38c50a5a2519861054b5cbaae1");
