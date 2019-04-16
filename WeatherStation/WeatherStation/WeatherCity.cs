@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherCity : IWeatherCity
+    public class WeatherCity : IWeatherCity
     {
         //public readonly string City;
         //public readonly double CelsiusCurrent;
@@ -27,6 +27,14 @@ namespace WeatherStation
             CelsiusCurrent = results.Main.Temperature.CelsiusCurrent;
             SpeedMetersPerSecond = results.Wind.SpeedMetersPerSecond;
             Clouds = results.Clouds.All;
+        }
+
+        public WeatherCity(string city, double celsiusCurrent, double speedMetersPerSecond, double clouds)
+        {
+            City = city;
+            CelsiusCurrent = celsiusCurrent;
+            SpeedMetersPerSecond = speedMetersPerSecond;
+            Clouds = clouds;
         }
 
         public override string ToString()

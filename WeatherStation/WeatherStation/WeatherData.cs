@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherStation
 {
-    class WeatherData
+    public class WeatherData
     {
         private WeatherCity weather;
         protected Action<WeatherCity> observers = null;

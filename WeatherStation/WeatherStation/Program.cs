@@ -65,6 +65,11 @@ namespace WeatherStation
 
             List<IWeatherCity> arr = creator.ReadFromFile(@"D:\WeatherCity1.txt");
             Console.ReadLine();
+
+            DAOWeather weather = new DAOWeather("myDB2");
+            weather.PrintConnectionInfo();
+            Console.WriteLine();
+
         }
     }
 }
